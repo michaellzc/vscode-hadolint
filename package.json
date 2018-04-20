@@ -5,7 +5,8 @@
 	"author": "Michael Lin <linzichunzf@hotmail.com>",
 	"license": "MIT",
 	"version": "0.0.1",
-	"publisher": "exiasr",
+  "publisher": "exiasr",
+  "icon": "hadolint.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ExiaSR/vscode-hadolint"

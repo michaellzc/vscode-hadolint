@@ -14,8 +14,12 @@
 		"vscode": "^1.22.0"
 	},
 	"categories": [
-		"Other"
-	],
+		"Linters"
+  ],
+  "keywords": [
+    "docker",
+    "dockerfile"
+  ],
 	"activationEvents": [
 		"onLanguage:dockerfile"
 	],
