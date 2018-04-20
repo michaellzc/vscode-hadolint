@@ -14,11 +14,6 @@ brew install hadolint
 
 You can download prebuilt binaries for Linux and Windows from the latest [release page](https://github.com/hadolint/hadolint/releases/latest).
 
-
-## How to run locally
-* `npm install` to initialize the extension and the server
-* `npm run compile` to compile the extension and the server
-* open the `lsp-sample` folder in VS Code. In the Debug viewlet, run 'Launch Client' from drop-down to launch the extension and attach to the extension.
-* create a file `test.txt`, and type `typescript`. You should see a validation error.
-* to debug the server use the 'Attach to Server' launch config.
-* set breakpoints in the client or the server.
+## Development
+* Run `yarn install` to install dependencies
+* Press `F5` or run `Launch Client` from debugger
