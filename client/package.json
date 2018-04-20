@@ -1,63 +1,20 @@
 {
-	"name": "hadolint",
-	"displayName": "hadolint",
-	"description": "Integrates hadolint, a Dockerfile linter, into VS Code.",
-	"author": "Michael Lin <linzichunzf@hotmail.com>",
-	"license": "MIT",
-	"version": "0.0.1",
-	"publisher": "vscode",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ExiaSR/vscode-hadolint"
-	},
-	"engines": {
-		"vscode": "^1.22.0"
-	},
-	"categories": [
-		"Linters"
-  ],
-  "keywords": [
-    "docker",
-    "dockerfile"
-  ],
-	"activationEvents": [
-		"onLanguage:dockerfile"
-	],
-	"main": "./out/src/extension",
-	"contributes": {
-		"configuration": {
-			"type": "object",
-			"title": "Example configuration",
-			"properties": {
-				"hadolint.maxNumberOfProblems": {
-					"scope": "resource",
-					"type": "number",
-					"default": 100,
-					"description": "Controls the maximum number of problems produced by the server."
-				},
-				"lspSample.trace.server": {
-					"scope": "window",
-					"type": "string",
-					"enum": [
-						"off",
-						"messages",
-						"verbose"
-					],
-					"default": "off",
-					"description": "Traces the communication between VSCode and the language server."
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "tsc -p ./",
-		"compile": "tsc -p ./",
-		"watch": "tsc -w -p ./",
-		"update-vscode": "node ./node_modules/vscode/bin/install",
-		"postinstall": "node ./node_modules/vscode/bin/install"
-	},
-	"dependencies": {
-		"vscode": "^1.1.14",
-		"vscode-languageclient": "^4.1.3"
-	}
+  "name": "hadolint",
+  "displayName": "hadolint",
+  "description": "Integrates hadolint, a Dockerfile linter, into VS Code.",
+  "author": "Michael Lin <linzichunzf@hotmail.com>",
+  "license": "MIT",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ExiaSR/vscode-hadolint"
+  },
+  "scripts": {
+    "update-vscode": "node ./node_modules/vscode/bin/install",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "dependencies": {
+    "vscode": "^1.1.14",
+    "vscode-languageclient": "^4.1.3"
+  }
 }
