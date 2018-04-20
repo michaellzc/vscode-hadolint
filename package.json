@@ -24,7 +24,7 @@
   "activationEvents": [
     "onLanguage:dockerfile"
   ],
-  "main": "./client/out/src/extension",
+  "main": "./client/out/extension",
   "contributes": {
     "configuration": {
       "type": "object",
@@ -51,13 +51,13 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "cd client && yarn run update-vscode && cd .. && npm run compile",
-    "postinstall": "cd server && yarn install && cd ../client && yarn install && cd ..",
-    "compile": "tsc -p client/tsconfig.json && cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
-    "compile:client": "tsc -p client/tsconfig.json",
-    "watch:client": "tsc -w -p client/tsconfig.json",
-    "compile:server": "cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
-    "watch:server": "cd server && npm run installServer && cd .. && tsc -w -p server/tsconfig.json"
+    "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+    "compile:client": "tsc -p ./client/tsconfig.json",
+    "compile:server": "tsc -p ./server/tsconfig.json",
+    "watch:client": "tsc -w -p ./client/tsconfig.json",
+    "watch:server": "tsc -w -p ./server/tsconfig.json",
+    "compile": "npm run compile:client && npm run compile:server",
+    "postinstall": "cd client && yarn install && cd ../server && yarn install && cd .."
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
