@@ -68,7 +68,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 
   // Maybe fail to find hadolint from PATH
   if (error) {
-    connection.window.showErrorMessage('hadolint: Cannot found hadolint from system $PATH. Please install hadolint in advance');
+    connection.window.showErrorMessage('hadolint: Cannot find hadolint from system $PATH. Please install hadolint in advance');
     return;
   }
 
