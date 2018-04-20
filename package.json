@@ -51,12 +51,12 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+    "vscode:prepublish": "cd client && yarn run update-vscode && cd .. && yarn run compile",
     "compile:client": "tsc -p ./client/tsconfig.json",
     "compile:server": "tsc -p ./server/tsconfig.json",
     "watch:client": "tsc -w -p ./client/tsconfig.json",
     "watch:server": "tsc -w -p ./server/tsconfig.json",
-    "compile": "npm run compile:client && npm run compile:server",
+    "compile": "yarn run compile:client && yarn run compile:server",
     "postinstall": "cd client && yarn install && cd ../server && yarn install && cd .."
   },
   "devDependencies": {
