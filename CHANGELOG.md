@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.3] - 2018-04-20
+### Changed
+- Improve npm build scripts
+- Update development instruction
+
+### Fixed
+- Fixed window error message typo 
+
 ## [0.0.2] - 2018-04-20
 ### Fixed
 - Fix broken tsconfig
