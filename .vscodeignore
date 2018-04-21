@@ -1,0 +1,8 @@
+.vscode/**
+client/src/**
+server/src/**
+**/*.map
+.gitignore
+**/tsconfig.json
+**/tsconfig.base.json
+.travis.yml

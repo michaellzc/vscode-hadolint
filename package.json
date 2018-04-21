@@ -12,7 +12,8 @@
     "url": "https://github.com/ExiaSR/vscode-hadolint"
   },
   "engines": {
-    "vscode": "^1.22.0"
+    "vscode": "^1.22.0",
+    "node": "^8.0.0"
   },
   "categories": [
     "Linters"
@@ -52,18 +53,31 @@
   },
   "scripts": {
     "vscode:prepublish": "cd client && yarn run update-vscode && cd .. && yarn run compile",
+    "compile": "npm-run-all -l -p compile:*",
     "compile:client": "tsc -p ./client/tsconfig.json",
     "compile:server": "tsc -p ./server/tsconfig.json",
     "watch:client": "tsc -w -p ./client/tsconfig.json",
     "watch:server": "tsc -w -p ./server/tsconfig.json",
-    "compile": "yarn run compile:client && yarn run compile:server",
-    "postinstall": "cd client && yarn install && cd ../server && yarn install && cd .."
+    "lint": "npm-run-all -l lint:*",
+    "lint:client": "tslint --fix -c tslint.json -p client",
+    "lint:server": "tslint --fix -c tslint.json -p server",
+    "postinstall": "cd client && yarn install && cd ../server && yarn install && cd ..",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
     "@types/mocha": "^2.2.48",
     "@types/node": "^6.0.101",
+    "commitizen": "^2.9.6",
+    "conventional-changelog": "^1.1.24",
+    "cz-conventional-changelog": "^2.1.0",
+    "npm-run-all": "^4.1.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
