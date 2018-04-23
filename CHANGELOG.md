@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2018-04-22
+### Added
+- Add option to set default output level
+
 ## [0.0.3] - 2018-04-20
 ### Changed
 - Improve npm build scripts
