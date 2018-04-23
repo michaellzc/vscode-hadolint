@@ -37,16 +37,16 @@
           "default": 100,
           "description": "Controls the maximum number of problems produced by the server."
         },
-        "hadolint.trace.server": {
-          "scope": "window",
+        "hadolint.outputLevel": {
           "type": "string",
           "enum": [
-            "off",
-            "messages",
-            "verbose"
+            "error",
+            "info",
+            "warning",
+            "hint"
           ],
-          "default": "off",
-          "description": "Traces the communication between VSCode and the language server."
+          "default": "warning",
+          "description": "Set the default output level of hadolint message."
         }
       }
     }
