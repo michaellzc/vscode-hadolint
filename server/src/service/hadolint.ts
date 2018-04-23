@@ -1,7 +1,9 @@
 'use strict';
 
+import * as spawn from 'cross-spawn';
+
 // source: https://github.com/AtomLinter/linter-hadolint/blob/master/lib/main.js#L45
-export function processHadolintMessage(message: String) : {lineNumber: number, rule: string, message: string} {
+export function processHadolintMessage(message: String) : { lineNumber: number, rule: string, message: string } {
   const patterns = [
     {
       // </path/to/file>:<line-number> <error-code> <message>
@@ -24,4 +26,18 @@ export function processHadolintMessage(message: String) : {lineNumber: number, r
   }
 
   return null;
+}
+
+export function lint(file: string) {
+  let { stdout, error } = spawn.sync('hadolint', [ file ]);
+
+  if (error) {
+    throw new Error('Cannot find hadolint from system $PATH. Please install hadolint in advance');
+  }
+
+  // Parse hadolint output
+  const hadolintRawOutput = stdout.toString().split(/\r?\n/g).filter(result => result !== (undefined || null || ''));
+  let hadolintResults = hadolintRawOutput.map(each => processHadolintMessage(each));
+
+  return hadolintResults;
 }
