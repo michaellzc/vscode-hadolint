@@ -1,5 +1,6 @@
 import * as path from 'path';
-import { workspace, ExtensionContext } from 'vscode';
+import { selectExecutable } from './command/select-executable';
+import { workspace, ExtensionContext, commands as Commands } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
@@ -34,4 +35,5 @@ export function activate(context: ExtensionContext) {
   // Push the disposable to the context's subscriptions so that the
   // client can be deactivated on extension deactivation
   context.subscriptions.push(disposable);
+  context.subscriptions.push(Commands.registerCommand('hadolint.selectExecutable', selectExecutable));
 }

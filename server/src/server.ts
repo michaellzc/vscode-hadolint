@@ -18,6 +18,7 @@ interface Settings {
 interface HadolintSettings {
   maxNumberOfProblems: number;
   outputLevel: string;
+  hadolintPath: string;
 }
 
 const HadolintSeverity = {
@@ -56,6 +57,7 @@ connection.onInitialize((_params): InitializeResult => {
 // hold the maxNumberOfProblems setting
 let maxNumberOfProblems: number;
 let outputLevel: string;
+let hadolintPath: string;
 
 function validateTextDocument(textDocument: TextDocument): void {
   let diagnostics: Diagnostic[] = [];
@@ -63,7 +65,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let dockerfilePath = url.parse(textDocument.uri).path;
 
   try {
-    const hadolintResults = hadolintService.lint(dockerfilePath);
+    const hadolintResults = hadolintService.lint(dockerfilePath, hadolintPath);
     // Format diagnostics
     hadolintResults.forEach((result, index) => {
       if (index > maxNumberOfProblems) { return; }
@@ -90,6 +92,7 @@ connection.onDidChangeConfiguration((change) => {
   let settings = <Settings>change.settings;
   maxNumberOfProblems = settings.hadolint.maxNumberOfProblems || 100;
   outputLevel = settings.hadolint.outputLevel || 'warning';
+  hadolintPath = settings.hadolint.hadolintPath;
   // Revalidate any open text documents
   documents.all().forEach(validateTextDocument);
 });

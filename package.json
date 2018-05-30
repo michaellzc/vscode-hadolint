@@ -23,7 +23,8 @@
     "dockerfile"
   ],
   "activationEvents": [
-    "onLanguage:dockerfile"
+    "onLanguage:dockerfile",
+    "onCommand:hadolint.selectExecutable"
   ],
   "main": "./client/out/extension",
   "contributes": {
@@ -31,6 +32,11 @@
       "type": "object",
       "title": "Example configuration",
       "properties": {
+        "hadolint.hadolintPath": {
+          "type": "string",
+          "default": "hadolint",
+          "description": "Path (fully qualified) to hadolint executable."
+        },
         "hadolint.maxNumberOfProblems": {
           "scope": "resource",
           "type": "number",
@@ -49,7 +55,14 @@
           "description": "Set the default output level of hadolint message."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "hadolint.selectExecutable",
+        "title": "Select Hadolint Executable",
+        "category": "Hdolint"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "cd client && yarn run update-vscode && cd .. && yarn run compile",
@@ -68,6 +81,7 @@
     "@types/cross-spawn": "^6.0.0",
     "@types/mocha": "^2.2.48",
     "@types/node": "^6.0.101",
+    "@types/which": "^1.3.1",
     "commitizen": "^2.9.6",
     "conventional-changelog": "^1.1.24",
     "cz-conventional-changelog": "^2.1.0",
