@@ -28,10 +28,11 @@ export function processHadolintMessage(message: String) : { lineNumber: number, 
   return null;
 }
 
-export function lint(file: string) {
-  let { stdout, error } = spawn.sync('hadolint', [ file ]);
+export function lint(file: string, executablePath: string) {
+  let { stdout, error } = spawn.sync(executablePath, [ file ]);
 
   if (error) {
+    console.error(error);
     throw new Error('Cannot find hadolint from system $PATH. Please install hadolint in advance');
   }
 

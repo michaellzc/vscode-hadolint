@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add optiont to set custom full path to hadolint executable
 
 ## [0.1.1] - 2018-04-23
 ### Fixed
