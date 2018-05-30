@@ -6,3 +6,4 @@ server/src/**
 **/tsconfig.json
 **/tsconfig.base.json
 .travis.yml
+*.log
