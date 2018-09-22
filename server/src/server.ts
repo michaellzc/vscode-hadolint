@@ -1,6 +1,5 @@
 'use strict';
 
-import * as url from 'url';
 import {
   IPCMessageReader, IPCMessageWriter, createConnection,
   IConnection, TextDocuments, TextDocument,
