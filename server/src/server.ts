@@ -6,6 +6,7 @@ import {
   IConnection, TextDocuments, TextDocument,
   Diagnostic, DiagnosticSeverity, InitializeResult
 } from 'vscode-languageserver';
+import URI from 'vscode-uri';
 import * as hadolintService from './service/hadolint';
 
 // The settings interface describe the server relevant settings part
@@ -62,7 +63,7 @@ let hadolintPath: string;
 function validateTextDocument(textDocument: TextDocument): void {
   let diagnostics: Diagnostic[] = [];
   let lines = textDocument.getText().split(/\r?\n/g);
-  let dockerfilePath = url.parse(textDocument.uri).path;
+  let dockerfilePath = getFileSystemPath(URI.parse(textDocument.uri));
 
   try {
     const hadolintResults = hadolintService.lint(dockerfilePath, hadolintPath);
@@ -83,6 +84,18 @@ function validateTextDocument(textDocument: TextDocument): void {
     connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
   } catch (err) {
     connection.window.showErrorMessage(`hadolint: ${err.message}`);
+  }
+}
+
+function getFileSystemPath(uri: URI): string {
+  let result = uri.fsPath;
+  if (process.platform === 'win32' && result.length >= 2 && result[1] === ':') {
+    // Node by default uses an upper case drive letter and ESLint uses
+    // === to compare pathes which results in the equal check failing
+    // if the drive letter is lower case in th URI. Ensure upper case.
+    return result[0].toUpperCase() + result.substr(1);
+  } else {
+    return result;
   }
 }
 

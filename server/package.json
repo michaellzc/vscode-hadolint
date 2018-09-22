@@ -6,14 +6,15 @@
 	"license": "MIT",
 	"engines": {
 		"node": "*"
-  },
-  "version": "0.2.0",
+	},
+	"version": "0.2.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ExiaSR/vscode-hadolint"
 	},
 	"dependencies": {
 		"cross-spawn": "^6.0.5",
-		"vscode-languageserver": "^4.1.2"
+		"vscode-languageserver": "^5.1.0",
+		"vscode-uri": "^1.0.6"
 	}
 }
