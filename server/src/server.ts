@@ -86,6 +86,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   }
 }
 
+// Source: https://github.com/Microsoft/vscode-eslint/blob/master/server/src/eslintServer.ts#L269
 function getFileSystemPath(uri: URI): string {
   let result = uri.fsPath;
   if (process.platform === 'win32' && result.length >= 2 && result[1] === ':') {
