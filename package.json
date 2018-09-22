@@ -4,7 +4,7 @@
   "description": "Integrates hadolint, a Dockerfile linter, into VS Code.",
   "author": "Michael Lin <linzichunzf@hotmail.com>",
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "exiasr",
   "icon": "hadolint.png",
   "repository": {
@@ -12,7 +12,7 @@
     "url": "https://github.com/ExiaSR/vscode-hadolint"
   },
   "engines": {
-    "vscode": "^1.22.0",
+    "vscode": "^1.26",
     "node": "^8.0.0"
   },
   "categories": [
