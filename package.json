@@ -12,7 +12,7 @@
     "url": "https://github.com/ExiaSR/vscode-hadolint"
   },
   "engines": {
-    "vscode": "^1.26",
+    "vscode": "^1.26.0",
     "node": "^8.0.0"
   },
   "categories": [
