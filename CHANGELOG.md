@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.2] - 2018-11-08
+
+### Fixed
+
+- Revalidate Dockerfile now works on file saved
+
 ## [0.2.1] - 2018-09-22
 
 ### Fixed
