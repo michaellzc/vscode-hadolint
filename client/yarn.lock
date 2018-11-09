@@ -1418,9 +1418,10 @@ vscode-jsonrpc@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-4.0.0.tgz#a7bf74ef3254d0a0c272fab15c82128e378b3be9"
 
-vscode-languageclient@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/vscode-languageclient/-/vscode-languageclient-5.1.0.tgz#650ab0dc9fd0daaade058a8471aaff5bc3f9580e"
+vscode-languageclient@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/vscode-languageclient/-/vscode-languageclient-5.1.1.tgz#5b1f12066d89660d0d74b80dbbca371c6aea52f7"
+  integrity sha512-jMxshi+BPRQFNG8GB00dJv7ldqMda0be26laYYll/udtJuHbog6RqK10GSxHWDN0PgY0b0m5fePyTk3bq8a0TA==
   dependencies:
     semver "^5.5.0"
     vscode-languageserver-protocol "3.13.0"

@@ -5,6 +5,7 @@
     "target": "es6",
     "outDir": "out",
     "rootDir": "src",
+    "moduleResolution": "node",
     "lib": [
       "es6"
     ],
