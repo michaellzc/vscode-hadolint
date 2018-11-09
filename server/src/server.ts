@@ -37,9 +37,14 @@ let documents: TextDocuments = new TextDocuments();
 // Make the text document manager listen on the connection
 // for open, change and close text document events
 documents.listen(connection);
-// The content of a text document has changed. This event is emitted
-// when the text document first opened or when its content has changed.
-documents.onDidChangeContent((change) => {
+
+// Validate Dockerfile when file is opened
+documents.onDidOpen((change) => {
+  validateTextDocument(change.document);
+});
+
+// Revalidate Dockerfile when file is saved
+documents.onDidSave((change) => {
   validateTextDocument(change.document);
 });
 
