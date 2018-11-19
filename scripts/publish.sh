@@ -1,0 +1,1 @@
+yarn vsce -p AZURE_ACCESS_TOKEN $TAG
