@@ -6,7 +6,7 @@ The extension uses the `hadolint` binary installed in the system. If the binary 
 
 ## Preview
 
-[![https://gyazo.com/a701460ccdda13a1a449b2c3e8da40bc](https://i.gyazo.com/a701460ccdda13a1a449b2c3e8da40bc.gif)](https://gyazo.com/a701460ccdda13a1a449b2c3e8da40bc)
+[![https://gyazo.com/a701460ccdda13a1a449b2c3e8da40bc](https://i.gyazo.com/a701460ccdda13a1a449b2c3e8da40bc.gif)](https://gyazo.com/a701460ccdda13a1a449b2c3e8da40bc) [![Greenkeeper badge](https://badges.greenkeeper.io/ExiaSR/vscode-hadolint.svg)](https://greenkeeper.io/)
 
 ## Get started
 
