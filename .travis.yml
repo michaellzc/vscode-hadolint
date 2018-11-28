@@ -12,4 +12,5 @@ script:
   - yarn vscode:prepublish
   - yarn lint
 after_success:
+  - chmod +x scripts/publish.sh
   - if [ -n "$TRAVIS_TAG" ]; then scripts/publish.sh; fi

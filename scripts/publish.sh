@@ -1,1 +1,4 @@
-yarn vsce -p AZURE_ACCESS_TOKEN $TAG
+#!/bin/bash
+set -e
+
+yarn vsce publish -p AZURE_ACCESS_TOKEN 
