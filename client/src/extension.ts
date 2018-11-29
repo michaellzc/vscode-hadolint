@@ -25,6 +25,7 @@ export function activate(context: ExtensionContext) {
       // Synchronize the setting section 'languageServerExample' to the server
       configurationSection: 'hadolint',
       // Notify the server about file changes to '.clientrc files contain in the workspace
+      // TODO: add handling for custom hadolint config file location
       fileEvents: workspace.createFileSystemWatcher('**/.hadolint.yaml')
     }
   };

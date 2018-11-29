@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Revalidate all Dockerfile when `.hadolint.yaml` is changed
+
+
 ## [0.2.3] - 2018-11-28
 
 ### Changed
