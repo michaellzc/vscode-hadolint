@@ -116,8 +116,11 @@ connection.onDidChangeConfiguration((change) => {
 });
 
 connection.onDidChangeWatchedFiles((_change) => {
-  // Monitored files have change in VSCode
-  connection.console.log('We received an file change event');
+  // Detect .hadolint.yaml change
+  // revalidate all documents
+  documents.all().forEach(document => {
+    validateTextDocument(document);
+  });
 });
 
 // Listen on the connection
