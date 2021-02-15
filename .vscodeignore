@@ -1,8 +1,14 @@
-.vscode/**
-**/*.ts
-**/*.map
-.gitignore
-**/tsconfig.json
-**/tsconfig.base.json
-contributing.md
-.travis.yml
+# Ignore everything
+*
+**/*
+
+# Allow metadata
+!hadolint.png
+!CHANGELOG.md
+!LICENSE
+!package.json
+!README.md
+
+# Allow LSP bundles
+!client/out/extension.js
+!server/out/server.js
