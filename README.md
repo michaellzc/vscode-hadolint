@@ -24,5 +24,4 @@ You can download prebuilt binaries for Linux and Windows from the latest [releas
 
 ## Development
 * Run `yarn install` to install dependencies.
-* Run `yarn watch:server` to compile language server code on the fly.
 * Press `F5` or run `Launch Client` from debugger.

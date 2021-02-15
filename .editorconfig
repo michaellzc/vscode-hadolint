@@ -1,22 +1,7 @@
-root = true
-
-[*]
+[{*.js, *.json, *.rjson, *.ts}]
 end_of_line = lf
-insert_final_newline = true
-
-[*.{js,jsx,ts}]
-indent_style = space
-indent_size = 2
-charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
-end_of_line = lf
-# editorconfig-tools is unable to ignore longs strings or urls
-max_line_length = null
-
-[*.{yml,json}]
-indent_style = space
-indent_size = 2
-
-[Makefile]
+charset = utf-8
 indent_style = tab
+indent_size = 2

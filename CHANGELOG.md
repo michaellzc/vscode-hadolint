@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-02-14
+
+### Added
+
+- Multi-root workspae support
+
 ## [0.3.0] - 2018-12-01
 
 ### Added

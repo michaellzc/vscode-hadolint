@@ -1,0 +1,9 @@
+// For configuration documentation see http://romefrontend.dev/#project-configuration
+name: "hadolint"
+lint: {
+	ignore: [
+		".history"
+		".vscode"
+]
+}
+root: true
