@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2021-02-15
+
+### Changed
+
+- Optimized extension production build with webpack
+
 ## [1.0.0] - 2021-02-14
 
 ### Added
