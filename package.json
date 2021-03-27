@@ -37,6 +37,13 @@
           "default": "hadolint",
           "description": "Path to hadolint executable. Windows user, make sure you escape the back slash in the path, e.g, C:\\\\path\\to\\\\hadolint\\\\excutable"
         },
+        "hadolint.cliOptions": {
+          "type": "array",
+          "default": [
+            "--no-color"
+          ],
+          "description": "A list of supported hadolint CLI options"
+        },
         "hadolint.maxNumberOfProblems": {
           "scope": "resource",
           "type": "number",

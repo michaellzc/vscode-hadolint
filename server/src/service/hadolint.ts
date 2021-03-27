@@ -1,6 +1,11 @@
 "use strict";
 import * as spawn from "cross-spawn";
 
+interface Message {
+	level: "info" | "warn" | "error";
+	message: string;
+}
+
 // source: https://github.com/AtomLinter/linter-hadolint/blob/master/lib/main.js#L45
 export function processHadolintMessage(
 	message: String,
@@ -40,10 +45,36 @@ export function processHadolintMessage(
 export function lint(
 	file: string,
 	executablePath: string,
+	cliOptions: Array<string>,
 	workspacePath: string,
 ) {
 	let cwd = workspacePath || process.cwd();
-	let {stdout, error} = spawn.sync(executablePath, [file], {cwd});
+	const messages: Array<Message> = [];
+	const args = cliOptions;
+	console.log(
+		`[hadolint] Running ${executablePath} ${[file, ...args].join(" ")} in ${cwd}`,
+	);
+	let {stdout, stderr, error} = spawn.sync(
+		executablePath,
+		[file, ...args],
+		{cwd},
+	);
+
+	if (stderr.toString()) {
+		console.log(
+			"[hadolint] `--no-color` flag may not supported. Falling back...",
+		);
+		console.log(`[hadolint] ${stderr.toString()}`);
+		messages.push({
+			level: "warn",
+			message: "Please visit [ExiaSR/vscode-hadolint#44](https://github.com/ExiaSR/vscode-hadolint/issues/44#issuecomment-808756114). You may be using an outdated version of hadolint or you are running hadolint in Docker. ",
+		});
+		const newArgs = args.filter((item) => item !== "--no-color");
+		const results = spawn.sync(executablePath, [file, ...newArgs], {cwd});
+		console.log(results.stderr.toString());
+		error = results.error;
+		stdout = results.stdout;
+	}
 
 	if (error) {
 		console.error(error);
@@ -60,5 +91,8 @@ export function lint(
 		processHadolintMessage(each)
 	);
 
-	return hadolintResults;
+	return {
+		results: hadolintResults,
+		messages,
+	};
 }

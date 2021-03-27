@@ -16,6 +16,7 @@ interface HadolintSettings {
 	maxNumberOfProblems: number;
 	outputLevel: string;
 	hadolintPath: string;
+	cliOptions: Array<string>;
 }
 
 const HadolintSeverity = {
@@ -27,6 +28,9 @@ const HadolintSeverity = {
 
 // Creates the LSP connection
 const connection = createConnection(ProposedFeatures.all);
+// vscode lsp is stupid https://github.com/microsoft/vscode/issues/68670#issuecomment-518325168
+console.log = connection.console.log.bind(connection.console);
+console.error = connection.console.error.bind(connection.console);
 
 // Create a manager for open text documents
 let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
@@ -54,9 +58,10 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let dockerfilePath = getFileSystemPath(URI.parse(textDocument.uri));
 
 	try {
-		const hadolintResults = hadolintService.lint(
+		const {results: hadolintResults, messages} = hadolintService.lint(
 			dockerfilePath,
 			settings.hadolintPath,
+			settings.cliOptions,
 			getFileSystemPath(URI.parse(workspaceFolder)),
 		);
 		// Format diagnostics
@@ -80,6 +85,16 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		});
 		// Send the computed diagnostics to VSCode.
 		connection.sendDiagnostics({uri: textDocument.uri, diagnostics});
+		messages.forEach((message) => {
+			switch (message.level) {
+				case "error":
+					connection.window.showErrorMessage(message.message);
+				case "info":
+					connection.window.showInformationMessage(message.message);
+				case "warn":
+					connection.window.showWarningMessage(message.message);
+			}
+		});
 	} catch (err) {
 		connection.window.showErrorMessage(`hadolint: ${err.message}`);
 	}
