@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.2] - 2021-03-27
+
+### Fixed
+
+- Graceful handling of the upstream colorized output feature
+- Revalidate on file save
+
 ## [1.0.1] - 2021-02-15
 
 ### Changed
