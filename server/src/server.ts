@@ -33,7 +33,7 @@ console.log = connection.console.log.bind(connection.console);
 console.error = connection.console.error.bind(connection.console);
 
 // Create a manager for open text documents
-let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
+let documents: TextDocuments<TextDocument>;
 
 // The workspace folder this server is operating on
 let workspaceFolder: string | null;
@@ -100,19 +100,27 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	}
 }
 
-documents.onDidOpen((event) => {
-	connection.console.log(
-		`[hadolint(${process.pid}) ${workspaceFolder}] Document opened: ${event.document.uri}`,
-	);
-	validateTextDocument(event.document);
-});
-documents.onDidSave((event) => {
-	validateTextDocument(event.document);
-});
-documents.listen(connection);
+function setupDocumentsListeners() {
+	documents.listen(connection);
+	documents.onDidOpen((event) => {
+		connection.console.log(
+			`[hadolint(${process.pid}) ${workspaceFolder}] Document is opened: ${event.document.uri}`,
+		);
+		validateTextDocument(event.document);
+	});
+
+	documents.onDidSave((event) => {
+		connection.console.log(
+			`[hadolint(${process.pid}) ${workspaceFolder}] Document is saved: ${event.document.uri}`,
+		);
+		validateTextDocument(event.document);
+	});
+}
 
 connection.onInitialize((params) => {
 	workspaceFolder = params.rootUri;
+	documents = new TextDocuments(TextDocument);
+	setupDocumentsListeners();
 	connection.console.log(
 		`[hadolint(${process.pid}) ${workspaceFolder}] Started and initialize received`,
 	);
@@ -120,6 +128,9 @@ connection.onInitialize((params) => {
 		capabilities: {
 			textDocumentSync: {
 				openClose: true,
+				save: {
+					includeText: false,
+				},
 				change: TextDocumentSyncKind.None,
 			},
 		},
