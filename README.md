@@ -21,7 +21,29 @@ brew install hadolint
 
 You can download prebuilt binaries for Linux and Windows from the latest [release page](https://github.com/hadolint/hadolint/releases/latest).
 
+## Configuration
+
+Below is a sample configuration of the extension.
+
+```json
+{
+  "hadolintPath": "hadolint",
+  "cliOptions": ["--no-color", "--ignore", "DL3000"],
+  "maxNumberOfProblems": 100,
+  "outputLevel": "warning"
+}
+```
+
+> This extension is multi-root compatible. You may have many folders with different `.hadolint.yaml` opened in the same VSCode instance and they will not interfere each other.
+
+You may also create a `.hadolint.yaml` in your project root. Learn more from [hadolint documentation](https://github.com/hadolint/hadolint/blob/master/README.md#configure).
+
+```yml
+ignored:
+  - DL3000
+```
 
 ## Development
-* Run `yarn install` to install dependencies.
-* Press `F5` or run `Launch Client` from debugger.
+
+- Run `yarn install` to install dependencies.
+- Press `F5` or run `Launch Client` from debugger.
