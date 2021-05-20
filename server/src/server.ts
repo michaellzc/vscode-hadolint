@@ -14,9 +14,9 @@ import {TextDocument} from "vscode-languageserver-textdocument";
 
 interface HadolintSettings {
 	maxNumberOfProblems: number;
-	outputLevel: string;
+	outputLevel: "error" | "info" | "warning" | "hint";
 	hadolintPath: string;
-	cliOptions: Array<string>;
+	cliOptions: string[];
 }
 
 const HadolintSeverity = {
@@ -53,7 +53,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		)}`,
 	);
 
-	let diagnostics: Array<Diagnostic> = [];
+	let diagnostics: Diagnostic[] = [];
 	let lines = textDocument.getText().split(/\r?\n/g);
 	let dockerfilePath = getFileSystemPath(URI.parse(textDocument.uri));
 
@@ -70,8 +70,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				return;
 			}
 			let diagnosic: Diagnostic = {
-				// rome-ignore lint/ts/noExplicitAny
-				severity: (<any>HadolintSeverity)[settings.outputLevel],
+				severity: HadolintSeverity[settings.outputLevel],
 				range: {
 					start: {line: result.lineNumber - 1, character: 0},
 					end: {

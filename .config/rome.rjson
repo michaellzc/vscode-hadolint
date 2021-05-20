@@ -4,6 +4,9 @@ lint: {
 	ignore: [
 		".history"
 		".vscode"
+		"node_modules"
+		"package.json"
+		"package-lock.json"
 ]
 }
 root: true
