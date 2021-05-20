@@ -1,5 +1,5 @@
 import * as path from "path";
-// rome-ignore resolver/notFound
+// rome-ignore resolver/notFound: runtime dependency that doesn't exist
 import {
 	ExtensionContext,
 	OutputChannel,
@@ -21,8 +21,8 @@ import {selectExecutable} from "./command/select-executable";
 let defaultClient: LanguageClient;
 let clients: Map<string, LanguageClient> = new Map();
 
-let _sortedWorkspaceFolders: Array<string> | undefined;
-function sortedWorkspaceFolders(): Array<string> {
+let _sortedWorkspaceFolders: (string[]) | undefined;
+function sortedWorkspaceFolders(): string[] {
 	if (_sortedWorkspaceFolders === void 0) {
 		_sortedWorkspaceFolders = Workspace.workspaceFolders
 			? Workspace.workspaceFolders.map((folder) => {
@@ -153,7 +153,7 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate(): Thenable<void> {
-	let promises: Array<Thenable<void>> = [];
+	let promises: Thenable<void>[] = [];
 	if (defaultClient) {
 		promises.push(defaultClient.stop());
 	}

@@ -1,5 +1,5 @@
 import * as which from "which";
-// rome-ignore resolver/notFound
+// rome-ignore resolver/notFound: runtime dependency that doesn't exist
 import {window, workspace} from "vscode";
 
 export async function selectExecutable() {

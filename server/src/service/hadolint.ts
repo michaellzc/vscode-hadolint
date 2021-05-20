@@ -18,7 +18,7 @@ export function processHadolintMessage(
 		{
 			// </path/to/file>:<line-number> <error-code> <message>
 			regex: /(.+):(\d+) (\S+) (.+)/,
-			cb: (m: Array<string>) => ({
+			cb: (m: string[]) => ({
 				lineNumber: Number.parseInt(m[2]),
 				rule: m[3],
 				message: m[4],
@@ -28,7 +28,7 @@ export function processHadolintMessage(
 			// </path/to/file> <error-code> <message>
 			// specifying DL|SH so it won't break when the path to file has whitespaces
 			regex: /(.+) ((?:DL|SH)\d+) (.+)/,
-			cb: (m: Array<string>) => ({lineNumber: 1, rule: m[2], message: m[3]}),
+			cb: (m: string[]) => ({lineNumber: 1, rule: m[2], message: m[3]}),
 		},
 	];
 	// eslint-disable-next-line no-restricted-syntax
@@ -45,11 +45,11 @@ export function processHadolintMessage(
 export function lint(
 	file: string,
 	executablePath: string,
-	cliOptions: Array<string>,
+	cliOptions: string[],
 	workspacePath: string,
 ) {
 	let cwd = workspacePath || process.cwd();
-	const messages: Array<Message> = [];
+	const messages: Message[] = [];
 	const args = cliOptions;
 	console.log(
 		`[hadolint] Running ${executablePath} ${[file, ...args].join(" ")} in ${cwd}`,

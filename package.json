@@ -20,7 +20,7 @@
   ],
   "engines": {
     "vscode": "^1.52.0",
-    "node": "^12"
+    "node": ">=12"
   },
   "activationEvents": [
     "onLanguage:dockerfile",
@@ -83,7 +83,7 @@
     "@types/node": "^12.12.0",
     "esbuild": "^0.12.1",
     "rimraf": "^3.0.2",
-    "rome": "^10.0.4-beta",
+    "rome": "^10.0.7-beta.8",
     "typescript": "^4.0.2",
     "vsce": "^1.85.0"
   }
