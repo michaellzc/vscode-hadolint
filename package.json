@@ -76,15 +76,19 @@
     "build": "node ./bin/build.js",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
-    "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+    "test": "npm run compile && sh ./scripts/e2e.sh"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.0",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.0",
     "esbuild": "^0.12.1",
+    "mocha": "^8.4.0",
     "rimraf": "^3.0.2",
     "rome": "^10.0.7-beta.8",
     "typescript": "^4.0.2",
-    "vsce": "^1.85.0"
-  }
+    "vsce": "^1.85.0",
+    "vscode-test": "^1.5.2"
+  },
+  "dependencies": {}
 }
