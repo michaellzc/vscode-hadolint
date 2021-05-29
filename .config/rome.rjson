@@ -1,6 +1,10 @@
 // For configuration documentation see http://romefrontend.dev/#project-configuration
 name: "hadolint"
 lint: {
+	globals: [
+		"suite"
+		"test"
+]
 	ignore: [
 		".history"
 		".vscode"

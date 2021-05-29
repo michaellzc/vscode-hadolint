@@ -114,6 +114,13 @@ function setupDocumentsListeners() {
 		);
 		validateTextDocument(event.document);
 	});
+
+	documents.onDidChangeContent((event) => {
+		connection.console.log(
+			`[hadolint(${process.pid}) ${workspaceFolder}] Document is changed: ${event.document.uri}`,
+		);
+		validateTextDocument(event.document);
+	});
 }
 
 connection.onInitialize((params) => {
