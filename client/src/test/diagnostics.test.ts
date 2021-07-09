@@ -10,13 +10,13 @@ suite(
 		console.info(`Openning fixture ${docUri}`);
 
 		test(
-			"Diagnoses Always tag the version of an image explicitly (DL3006)",
+			"Diagnoses Always tag the version of an image explicitly",
 			async () => {
 				await testDiagnostics(
 					docUri,
 					[
 						{
-							message: "[hadolint] warning: Always tag the version of an image explicitly (DL3006)",
+							message: "[hadolint] warning: Always tag the version of an image explicitly",
 							range: toRange(0, 0, 0, 11),
 							severity: vscode.DiagnosticSeverity.Warning,
 							source: "dockerfile",

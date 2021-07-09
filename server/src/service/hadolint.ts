@@ -96,3 +96,13 @@ export function lint(
 		messages,
 	};
 }
+
+export function getRuleUrl(ruleId: string) {
+	if (/^SC(.+)/.test(ruleId)) {
+		return `https://github.com/koalaman/shellcheck/wiki/${ruleId}`;
+	} else if (/^DL(.+)/.test(ruleId)) {
+		return `https://github.com/hadolint/hadolint/wiki/${ruleId}`;
+	} else {
+		throw new Error(`${ruleId} is not a supported rule`);
+	}
+}
