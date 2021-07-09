@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-07-09
+
+### Added
+
+- Reference link to lint rule documentation 
+
 ## [1.0.2] - 2021-03-27
 
 ### Fixed
