@@ -78,7 +78,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						character: lines[result.lineNumber - 1].length,
 					},
 				},
-				message: `[hadolint] ${result.message} (${result.rule})`,
+				message: `[hadolint] ${result.message}`,
+				code: result.rule,
+				codeDescription: {
+					href: hadolintService.getRuleUrl(result.rule),
+				},
 			};
 			diagnostics.push(diagnosic);
 		});
