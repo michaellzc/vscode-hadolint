@@ -60,7 +60,7 @@ export function lint(
 		{cwd},
 	);
 
-	if (stderr.toString()) {
+	if (stderr && stderr.toString()) {
 		console.log(
 			"[hadolint] `--no-color` flag may not supported. Falling back...",
 		);
@@ -77,7 +77,8 @@ export function lint(
 	}
 
 	if (error) {
-		console.error(error);
+		console.error(`[hadolint] ${error.message}`);
+		console.error(error.stack);
 		throw new Error(
 			"Cannot find hadolint from system $PATH. Please install hadolint.",
 		);

@@ -90,15 +90,28 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		connection.sendDiagnostics({uri: textDocument.uri, diagnostics});
 		messages.forEach((message) => {
 			switch (message.level) {
-				case "error":
+				case "error": {
+					connection.console.info(
+						`[hadolint(${process.pid}) error: ${message.message}`,
+					);
 					connection.window.showErrorMessage(message.message);
-				case "info":
+				}
+				case "info": {
+					connection.console.info(
+						`[hadolint(${process.pid}) info: ${message.message}`,
+					);
 					connection.window.showInformationMessage(message.message);
-				case "warn":
+				}
+				case "warn": {
+					connection.console.info(
+						`[hadolint(${process.pid}) warn: ${message.message}`,
+					);
 					connection.window.showWarningMessage(message.message);
+				}
 			}
 		});
 	} catch (err) {
+		connection.console.error(err.stack);
 		connection.window.showErrorMessage(`hadolint: ${err.message}`);
 	}
 }
