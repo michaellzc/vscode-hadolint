@@ -67,7 +67,7 @@
       {
         "command": "hadolint.selectExecutable",
         "title": "Select Hadolint Executable",
-        "category": "Hdolint"
+        "category": "Hadolint"
       }
     ]
   },
