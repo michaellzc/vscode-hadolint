@@ -125,6 +125,13 @@ function setupDocumentsListeners() {
 		validateTextDocument(event.document);
 	});
 
+	documents.onDidClose((event) => {
+		connection.console.log(
+			`[hadolint(${process.pid}) ${workspaceFolder}] Document is closed: ${event.document.uri}`,
+		);
+		connection.sendDiagnostics({uri: event.document.uri, diagnostics: []});
+	});
+
 	documents.onDidSave((event) => {
 		connection.console.log(
 			`[hadolint(${process.pid}) ${workspaceFolder}] Document is saved: ${event.document.uri}`,
