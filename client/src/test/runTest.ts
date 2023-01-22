@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as which from "which";
 
-import {runTests} from "vscode-test";
+import {runTests} from "@vscode/test-electron";
 
 async function main() {
 	try {
