@@ -1,16 +1,16 @@
 import {
-	Diagnostic,
+	createConnection,
+	type Diagnostic,
 	DiagnosticSeverity,
 	DidChangeConfigurationNotification,
 	ProposedFeatures,
 	TextDocumentSyncKind,
 	TextDocuments,
-	createConnection,
 } from "vscode-languageserver/node";
+import {TextDocument} from "vscode-languageserver-textdocument";
 import {URI} from "vscode-uri";
 import * as hadolintService from "./service/hadolint";
 import {getFileSystemPath} from "./utils";
-import {TextDocument} from "vscode-languageserver-textdocument";
 
 interface HadolintSettings {
 	maxNumberOfProblems: number;
@@ -53,9 +53,9 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		)}`,
 	);
 
-	let diagnostics: Diagnostic[] = [];
-	let lines = textDocument.getText().split(/\r?\n/g);
-	let dockerfilePath = getFileSystemPath(URI.parse(textDocument.uri));
+	const diagnostics: Diagnostic[] = [];
+	const lines = textDocument.getText().split(/\r?\n/g);
+	const dockerfilePath = getFileSystemPath(URI.parse(textDocument.uri));
 
 	try {
 		const {results: hadolintResults, messages} = hadolintService.lint(
@@ -69,20 +69,26 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			if (index > settings.maxNumberOfProblems) {
 				return;
 			}
-			let diagnosic: Diagnostic = {
+			// Output lines we couldn't parse yield null; skip rather than crash.
+			if (!result) {
+				return;
+			}
+			// Clamp into the document: hadolint can report a line past the end
+			// of what we last read, e.g. while the user is still typing.
+			const line = Math.min(
+				Math.max(result.lineNumber - 1, 0),
+				Math.max(lines.length - 1, 0),
+			);
+			const ruleUrl = hadolintService.getRuleUrl(result.rule);
+			const diagnosic: Diagnostic = {
 				severity: HadolintSeverity[settings.outputLevel],
 				range: {
-					start: {line: result.lineNumber - 1, character: 0},
-					end: {
-						line: result.lineNumber - 1,
-						character: lines[result.lineNumber - 1].length,
-					},
+					start: {line, character: 0},
+					end: {line, character: (lines[line] || "").length},
 				},
 				message: `[hadolint] ${result.message}`,
-				code: result.rule,
-				codeDescription: {
-					href: hadolintService.getRuleUrl(result.rule),
-				},
+				...(result.rule ? {code: result.rule} : {}),
+				...(ruleUrl ? {codeDescription: {href: ruleUrl}} : {}),
 			};
 			diagnostics.push(diagnosic);
 		});
@@ -95,18 +101,21 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						`[hadolint(${process.pid}) error: ${message.message}`,
 					);
 					connection.window.showErrorMessage(message.message);
+					break;
 				}
 				case "info": {
 					connection.console.info(
 						`[hadolint(${process.pid}) info: ${message.message}`,
 					);
 					connection.window.showInformationMessage(message.message);
+					break;
 				}
 				case "warn": {
 					connection.console.info(
 						`[hadolint(${process.pid}) warn: ${message.message}`,
 					);
 					connection.window.showWarningMessage(message.message);
+					break;
 				}
 			}
 		});
@@ -168,7 +177,10 @@ connection.onInitialize((params) => {
 });
 
 connection.onInitialized(() => {
-	connection.client.register(DidChangeConfigurationNotification.type, undefined);
+	connection.client.register(
+		DidChangeConfigurationNotification.type,
+		undefined,
+	);
 });
 
 connection.onDidChangeConfiguration(() => {
