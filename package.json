@@ -1,95 +1,97 @@
 {
-  "name": "hadolint",
-  "displayName": "hadolint",
-  "description": "Integrates hadolint, a Dockerfile linter, into VS Code.",
-  "author": "Michael Lin <mlzc@hey.com>",
-  "license": "MIT",
-  "version": "1.1.2",
-  "publisher": "exiasr",
-  "icon": "hadolint.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ExiaSR/vscode-hadolint"
-  },
-  "categories": [
-    "Linters"
-  ],
-  "keywords": [
-    "hadolint",
-    "docker",
-    "dockerfile",
-    "multi-root ready"
-  ],
-  "engines": {
-    "vscode": "^1.70.0",
-    "node": ">=16"
-  },
-  "activationEvents": [
-    "onLanguage:dockerfile",
-    "onCommand:hadolint.selectExecutable"
-  ],
-  "main": "./client/out/extension",
-  "contributes": {
-    "configuration": {
-      "type": "object",
-      "title": "Hadolint - A Dockerfile linter",
-      "properties": {
-        "hadolint.hadolintPath": {
-          "type": "string",
-          "default": "hadolint",
-          "description": "Path to hadolint executable. Windows user, make sure you escape the back slash in the path, e.g, C:\\\\path\\to\\\\hadolint\\\\excutable"
-        },
-        "hadolint.cliOptions": {
-          "type": "array",
-          "default": [
-            "--no-color"
-          ],
-          "description": "A list of supported hadolint CLI options"
-        },
-        "hadolint.maxNumberOfProblems": {
-          "scope": "resource",
-          "type": "number",
-          "default": 100,
-          "description": "Controls the maximum number of problems produced by the server."
-        },
-        "hadolint.outputLevel": {
-          "type": "string",
-          "enum": [
-            "error",
-            "info",
-            "warning",
-            "hint"
-          ],
-          "default": "warning",
-          "description": "Set the default output level of hadolint message."
-        }
-      }
-    },
-    "commands": [
-      {
-        "command": "hadolint.selectExecutable",
-        "title": "Select Hadolint Executable",
-        "category": "Hadolint"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run build",
-    "build": "node ./bin/build.js",
-    "compile": "tsc -b",
-    "watch": "tsc -b -w",
-    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "test": "npm run compile && sh ./scripts/e2e.sh"
-  },
-  "devDependencies": {
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^18.6.4",
-    "esbuild": "^0.12.1",
-    "mocha": "^8.4.0",
-    "rimraf": "^3.0.2",
-    "rome": "^10.0.7-beta.8",
-    "typescript": "^4.5.5",
-    "vsce": "^2.6.7",
-    "vscode-test": "^1.5.2"
-  }
+	"name": "hadolint",
+	"displayName": "hadolint",
+	"description": "Integrates hadolint, a Dockerfile linter, into VS Code.",
+	"author": "Michael Lin <mlzc@hey.com>",
+	"license": "MIT",
+	"version": "1.1.2",
+	"publisher": "exiasr",
+	"icon": "hadolint.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ExiaSR/vscode-hadolint"
+	},
+	"categories": [
+		"Linters"
+	],
+	"keywords": [
+		"hadolint",
+		"docker",
+		"dockerfile",
+		"multi-root ready"
+	],
+	"engines": {
+		"vscode": "^1.125.0",
+		"node": ">=22"
+	},
+	"activationEvents": [
+		"onLanguage:dockerfile",
+		"onCommand:hadolint.selectExecutable"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Hadolint - A Dockerfile linter",
+			"properties": {
+				"hadolint.hadolintPath": {
+					"type": "string",
+					"default": "hadolint",
+					"description": "Path to hadolint executable. Windows user, make sure you escape the back slash in the path, e.g, C:\\\\path\\to\\\\hadolint\\\\excutable"
+				},
+				"hadolint.cliOptions": {
+					"type": "array",
+					"default": [
+						"--no-color"
+					],
+					"description": "A list of supported hadolint CLI options"
+				},
+				"hadolint.maxNumberOfProblems": {
+					"scope": "resource",
+					"type": "number",
+					"default": 100,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"hadolint.outputLevel": {
+					"type": "string",
+					"enum": [
+						"error",
+						"info",
+						"warning",
+						"hint"
+					],
+					"default": "warning",
+					"description": "Set the default output level of hadolint message."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "hadolint.selectExecutable",
+				"title": "Select Hadolint Executable",
+				"category": "Hadolint"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run build",
+		"build": "node ./bin/build.js",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "npm run test:unit && sh ./scripts/e2e.sh",
+		"test:unit": "npm run compile && node ./scripts/unit-test.js"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.4",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "^24.13.3",
+		"@vscode/test-electron": "^3.0.0",
+		"@vscode/vsce": "^3.9.2",
+		"esbuild": "^0.28.1",
+		"glob": "^13.0.6",
+		"mocha": "^11.7.6",
+		"rimraf": "^6.1.3",
+		"typescript": "^7.0.2"
+	}
 }

@@ -1,7 +1,6 @@
-import * as path from "path";
+import * as path from "node:path";
+import {runTests} from "@vscode/test-electron";
 import * as which from "which";
-
-import {runTests} from "vscode-test";
 
 async function main() {
 	try {
@@ -37,7 +36,7 @@ async function main() {
 			extensionTestsPath,
 			launchArgs: [workspaceDir, "--disable-extensions"],
 		});
-	} catch (err) {
+	} catch (_err) {
 		console.error("Failed to run tests");
 		process.exit(1);
 	}

@@ -3,4 +3,5 @@ node_modules
 client/server
 *.log
 *.vsix
+*.tsbuildinfo
 .vscode-test/
