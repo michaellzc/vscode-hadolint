@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const esbuild = require("esbuild");
-const path = require("path");
+const path = require("node:path");
 const rimraf = require("rimraf");
 
 const PROJECT_ROOT = process.cwd();
