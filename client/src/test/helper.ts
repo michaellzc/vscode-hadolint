@@ -1,6 +1,7 @@
 // rome-ignore resolver/notFound: runtime dependency that doesn't exist
+
+import * as path from "node:path";
 import * as vscode from "vscode";
-import * as path from "path";
 
 export let doc: vscode.TextDocument;
 export let editor: vscode.TextEditor;

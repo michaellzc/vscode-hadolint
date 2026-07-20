@@ -1,7 +1,6 @@
 # VS Code hadolint extension
 
-[![Build Status](https://travis-ci.com/ExiaSR/vscode-hadolint.svg?branch=master)](https://travis-ci.com/ExiaSR/vscode-hadolint)
-[![Greenkeeper badge](https://badges.greenkeeper.io/ExiaSR/vscode-hadolint.svg)](https://greenkeeper.io/)
+[![ci](https://github.com/michaellzc/vscode-hadolint/actions/workflows/ci.yml/badge.svg)](https://github.com/michaellzc/vscode-hadolint/actions/workflows/ci.yml)
 
 Integrates [hadolint](https://github.com/hadolint/hadolint), a Dockerfile linter, into VS Code. Please check their [documentation](https://github.com/hadolint/hadolint).
 

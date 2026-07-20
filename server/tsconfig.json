@@ -1,18 +1,17 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "es2019",
-		"lib": [
-			"ES2019"
-		],
+		"target": "es2022",
+		"lib": ["ES2022"],
+		// TypeScript 7 turns `strict` on by default. This project predates it and
+		// has never compiled under strict; keeping it off preserves the previous
+		// semantics. Turning it on is worth doing, but as its own change.
+		"strict": false,
+		"types": ["node", "mocha"],
 		"outDir": "out",
 		"rootDir": "src",
 		"sourceMap": true
 	},
-	"include": [
-		"src"
-	],
-	"exclude": [
-		"node_modules"
-	]
+	"include": ["src"],
+	"exclude": ["node_modules"]
 }

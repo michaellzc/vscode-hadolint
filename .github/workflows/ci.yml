@@ -7,44 +7,37 @@ on:
   pull_request: {}
 
 env:
-  HADOLINT_VERSION: "2.4.1"
+  HADOLINT_VERSION: "2.14.0"
+  NODE_VERSION: "24"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: styfle/cancel-workflow-action@0.9.0
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
       - run: npm install
-      - run: npx rome check
+      - run: npx biome check
+      - run: npm run test:unit
 
   e2e:
     strategy:
+      fail-fast: false
       matrix:
-        # TODO
-        # e2e on Windows is not working in CI
-        # os: [macos-latest, ubuntu-latest, windows-latest]
         os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: styfle/cancel-workflow-action@0.9.0
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-
-      - id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         name: .vscode-test cache
-        id: vscode-test-cache
         with:
           path: .vscode-test
           key: ${{ runner.os }}-vscode-test
@@ -53,27 +46,19 @@ jobs:
 
       - run: npm install
 
-      - run: |
-          echo "${GITHUB_WORKSPACE}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-        if: runner.os == 'Windows'
-      - run: |
-          echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
-        if: runner.os != 'Windows'
-
-      - run: |
-          curl -L --output "hadolint.exe" https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-Windows-x86_64.exe
-        if: runner.os == 'Windows'
-      - run: |
-          mkdir -p $GITHUB_WORKSPACE/bin
-          curl -L -o $GITHUB_WORKSPACE/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-Linux-x86_64
-          chmod +x $GITHUB_WORKSPACE/bin/hadolint
-        if: runner.os == 'Linux'
-      - run: |
-          mkdir -p $GITHUB_WORKSPACE/bin
-          curl -L -o $GITHUB_WORKSPACE/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-Darwin-x86_64
-          chmod +x $GITHUB_WORKSPACE/bin/hadolint
+      # hadolint ships no darwin-arm64 build, so use Homebrew on macOS and the
+      # published binary on Linux.
+      - run: brew install hadolint
         if: runner.os == 'macOS'
+      - run: |
+          mkdir -p "$GITHUB_WORKSPACE/bin"
+          curl -L -o "$GITHUB_WORKSPACE/bin/hadolint" \
+            "https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-Linux-x86_64"
+          chmod +x "$GITHUB_WORKSPACE/bin/hadolint"
+          echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
+        if: runner.os == 'Linux'
 
-      - uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm test
+      - run: xvfb-run -a npm test
+        if: runner.os == 'Linux'
+      - run: npm test
+        if: runner.os == 'macOS'

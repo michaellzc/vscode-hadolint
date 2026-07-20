@@ -1,32 +1,25 @@
 // rome-ignore resolver/notFound: runtime dependency that doesn't exist
+
+import * as assert from "node:assert";
 import * as vscode from "vscode";
-import * as assert from "assert";
 import {activate, getDocUri} from "./helper";
 
-suite(
-	"Should get diagnostics",
-	() => {
-		const docUri = getDocUri("Dockerfile");
-		console.info(`Openning fixture ${docUri}`);
+suite("Should get diagnostics", () => {
+	const docUri = getDocUri("Dockerfile");
+	console.info(`Openning fixture ${docUri}`);
 
-		test(
-			"Diagnoses Always tag the version of an image explicitly",
-			async () => {
-				await testDiagnostics(
-					docUri,
-					[
-						{
-							message: "[hadolint] warning: Always tag the version of an image explicitly",
-							range: toRange(0, 0, 0, 11),
-							severity: vscode.DiagnosticSeverity.Warning,
-							source: "dockerfile",
-						},
-					],
-				);
+	test("Diagnoses Always tag the version of an image explicitly", async () => {
+		await testDiagnostics(docUri, [
+			{
+				message:
+					"[hadolint] warning: Always tag the version of an image explicitly",
+				range: toRange(0, 0, 0, 11),
+				severity: vscode.DiagnosticSeverity.Warning,
+				source: "dockerfile",
 			},
-		);
-	},
-);
+		]);
+	});
+});
 
 function toRange(sLine: number, sChar: number, eLine: number, eChar: number) {
 	const start = new vscode.Position(sLine, sChar);
