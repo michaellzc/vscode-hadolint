@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-19
+
+### Added
+
+- Linter category in the extension marketplace listing
+- Clear diagnostics when a document is closed
+
+### Fixed
+
+- Crash when hadolint reports a Dockerfile parse error
+
+### Changed
+
+- Upgrade to VS Code API ^1.125.0 and Node.js 22 LTS
+- Bump various dependencies
+
 ## [1.1.1] - 2022-02-26
 
 ### Changed
